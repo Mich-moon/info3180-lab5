@@ -49,9 +49,16 @@ def login():
                 return redirect(next_page or url_for('home'))
             else:
                 flash('Username or Password is incorrect.', 'danger')
-                
-        flash_errors(form)
-        return render_template("login.html", form=form)
+
+    flash_errors(form)
+    return render_template("login.html", form=form)
+
+
+@app.route('/secure-page')
+@login_required
+def secure_page():
+    """Render a secure page on our website that only logged in users can access."""
+    return render_template('secure_page.html')
 
 
 # user_loader callback. This callback is used to reload the user object from
